@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Thông tin học sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .badge {
+        font-size: 100% !important;
+    }
+</style>
+
+<input type="hidden" id="studentid" value="@ViewBag.Id" />
+<!-- Row -->
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-3 col-xlg-3 col-md-5">
+        <div class="card">
+
+            <div class="card-block">
+                <small class="text-muted">Mã học sinh </small>
+                <h5><span id="fstudent"></span></h5>
+                <small class="text-muted p-t-10 db">Họ tên</small>
+                <h5 id="fname">
+                </h5>
+                <small class="text-muted p-t-10 db">Giới tính</small>
+                <h5><p id="fgender"></p></h5>
+                <small class="text-muted">Ngày sinh</small>
+                <h5><p id="fbirthday"></p></h5>
+                <small class="text-muted">Địa chỉ</small>
+                <h5><span id="faddress"></span></h5>
+                <small class="text-muted p-t-10 db">Email</small>
+                <h5><span id="femail"></span></h5>
+                <small class="text-muted p-t-10 db">Điện thoại</small>
+                <h5><span id="fphonenumber"></span></h5>
+                <small class="text-muted p-t-10 db">Trạng thái</small>
+                <h5><span id='fstate'  style="font-size: 100%;"> </span></h5>
+
+                <br />
+                <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
+                <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
+                <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-9 col-xlg-9 col-md-7">
+        <div class="card">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="home" role="tabpanel">
+                    <div class="card-block">
+                        <div class="sl-item">
+                            <blockquote class="m-t-10">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-6">
+                                        <h5><span id='classname' class='badge badge-success' style="font-size: 80%;"> </span></h5>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <h5>Điểm TB HK1:<span id='HK1' class='badge badge-warning' style="font-size: 80%;"> </span></h5>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <h5>Điểm TB HK2:<span id='HK2' class='badge badge-danger' style="font-size: 80%;"></span></h5>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <h5>Điểm TB cả năm:<span id='HK' class='badge badge-success' style="font-size: 80%;"></span></h5>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="home" role="tabpanel">
+                    <div class="card-block">
+                        <div class="sl-item">
+                            <h4>Danh sách điểm môn học</h4>
+                            <div class="table-responsive">
+                                <table id="datasubject" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Học Kì</th>
+                                            <th>Môn</th>
+                                            <th>Điểm 15'</th>
+                                            <th>Điểm 45'</th>
+                                            <th>Điểm HK</th>
+                                            <th>Điểm TB</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>63</td>
+                                            <td>2011/07/25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ashton Cox</td>
+                                            <td>Junior Technical Author</td>
+                                            <td>San Francisco</td>
+                                            <td>66</td>
+                                            <td>2009/01/12</td>
+                                        </tr>*@
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+<!-- Row -->
+<script src="~/Scripts/Students/ViewDetail.js"></script>
+@*@section js{loadpanel();}*@
+<script>
+</script>

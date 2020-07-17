@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Thay đổi quy định";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Thay đổi quy định";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Quy định về độ tuổi</h4>
+            </div>
+            <div class="card-block">
+                @*<form action="" class="form-horizontal">*@
+                <div class="form-body">
+                    @*<h4 class="box-title">Thông tin cá nhân</h4>*@
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-6" style="padding-top: 9px;">Độ tuổi tối thiểu</label>
+                                <div class="col-md-6">
+                                    <input id="idr" type="hidden" class="form-control">
+                                    <input id="minage"  type="text" class="form-control" >
+                                 </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-4">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-6" style="padding-top: 9px;">Độ tuổi tối đa</label>
+                                <div class="col-md-6">
+                                    <input id="maxage" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-4">
+                            <button onclick="updateRuleAge()" class="btn btn-primary">
+                                <i class="fa fa-check"></i> Lưu
+                            </button>
+                        </div>
+                   </div>
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        LoadRule();
+        $("#minage").TouchSpin({
+            min: 00,
+            max: 100,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        $("#maxage").TouchSpin({
+            min: 00,
+            max: 100,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+    });
+    function LoadRule() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetRuleAge',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $('#maxage').val(data[0].ruleage.MaxAge);
+                $('#minage').val(data[0].ruleage.MinAge);
+                $('#idr').val(data[0].ruleage.ID);
+                
+            },
+            error: function (xhr, status, error) {
+                alert('Error789:');
+            }
+        });
+    }
+    function updateRuleAge() {
+
+        if ($('#maxage').val() < $('#minage').val()) {
+            swal("Thay đổi thất bại", "Độ tuổi tối đa không thể nhỏ hơn độ tuổi tối thiểu", "error");
+            return
+        }
+
+        var ruleage = {
+            ID: $('#idr').val(),
+            MaxAge: $('#maxage').val(),
+            MinAge: $('#minage').val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/Rule/UpdateRuleAge',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(ruleage),
+            dataType: "json",
+            success: function (result) {
+                if (result[0].value == 1) {
+                    swal("Thay đổi thành công", "success", "success");                   
+                }
+            },
+            error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+        });
+    }
+</script>

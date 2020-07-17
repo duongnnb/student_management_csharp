@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Báo cáo tổng kết môn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Bảng điểm môn học</h4>
+            </div>
+            <div class="card-block">
+                <form action="form-layout.html#" class="form-horizontal">
+                    <div class="form-body">
+                        <hr class="m-t-0 m-b-40">
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div id="fmgrade" class="form-group row">
+                                    @*<label class="control-label text-right col-md-4">Môn học</label>*@
+                                    <div class="col-md-12">
+                                        <select id="subject" data-style="form-control btn-secondary"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div id="fmgrade" class="form-group row">
+                                    @*<label class="control-label text-right col-md-4">Học kỳ</label>*@
+                                    <div class="col-md-12">
+                                        <select id="semester" data-style="form-control btn-secondary">
+                                            <option value="1">Học kỳ 1</option>
+                                            <option value="2">Học kỳ 2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div id="" class="form-group row">
+                                    @*<label class="control-label text-right col-md-2">Khóa học</label>*@
+                                    <div class="col-md-7">
+                                        <select id="Year" data-style="form-control btn-secondary">
+                                            @{
+                                                int strDate = DateTime.Now.Year;
+                                                for (; strDate > 1988; strDate--)
+                                                {
+                                                    var tem = strDate - 1;
+                                                    <option value="@tem-@strDate">Khóa học @tem - @strDate </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div id="fmgrade" class="form-group row">
+                                    <div class="col-md-9">
+                                        <button type="button" onclick="ViewReportBySubject()" class="btn btn-success">Xem báo cáo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <table id="table-reportbysubject" class="table table-striped table-bordered" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Lớp</th>
+                                    <th>Sĩ số</th>
+                                    <th>Số lượng đạt</th>
+                                    <th>Tỷ lệ</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Report/Report.js"></script>

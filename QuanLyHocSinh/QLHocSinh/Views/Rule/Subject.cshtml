@@ -1,0 +1,233 @@
+﻿@{
+    ViewBag.Title = "Thay đổi quy định";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Thay đổi quy định";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Quy định môn học</h4>
+            </div>
+            <div class="card-block">
+                @*<form action="" class="form-horizontal">*@
+                <div class="form-body">
+                    @*<h4 class="box-title">Thông tin cá nhân</h4>*@
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-3" style="padding-top: 9px;">Môn</label>
+                                <div class="col-md-8">
+                                    <select id="subject"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Tên</label>
+                                <div class="col-md-8">
+                                    <input id="subjectname" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-3">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Số tiết</label>
+                                <div class="col-md-8">
+                                    <input id="period" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Hệ số</label>
+                                <div class="col-md-8">
+                                    <input id="type" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <button onclick="updateRuleSubject()" class="btn pull-right btn-primary">
+                                <i class="fa fa-check"></i> Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Số lượng môn học</h4>
+            </div>
+            <div class="card-block">
+                <div class="form-body">
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-7" style="padding-top: 9px;">Số lượng môn học tối đa</label>
+                                <div class="col-md-5">
+                                    <input id="maxtotalsubject" type="text" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--/span-->
+                        <div class="col-md-2">
+                            <button onclick="updateSubjectTotal()" class="btn pull-left  btn-primary">
+                                <i class="fa fa-check"></i> Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#subject').selectpicker();
+        init();
+        $('#subject').change(function () {
+            // var selectedText = $(this).find("option:selected").text();
+            LoadSubject();
+        });
+
+        $("#period").TouchSpin({
+            min: 1,
+            max: 1000,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        $("#type").TouchSpin({
+            min: 1,
+            max: 10,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        $("#maxtotalsubject").TouchSpin({
+            min: 1,
+            max: 1000,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        
+    });
+    function init() {
+        GetSubject();
+        LoadSubject();
+        LoadMaxTotalSubject();
+    }
+
+    function LoadSubject() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetSubjectByID',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { ID: $('#subject').val() },
+            async: false,
+            success: function (data) {
+                $('#type').val(data.Type)
+                $('#period').val(data.Period)
+                $('#subjectname').val(data.SubjectName)
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function GetSubject() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetSubject',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $('#subject').find('option').remove().end();
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#subject").append('<option value="' + obj.ID + '">' + obj.SubjectName + '</option>').selectpicker('refresh');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function updateRuleSubject() {
+        var subject = {
+            ID: $('#subject').val(),
+            SubjectName: $('#subjectname').val(),
+            Type: $('#type').val(),
+            Period: $('#period').val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/Rule/UpdateSubject',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(subject),
+            dataType: "json",
+            success: function (result) {
+                if (result[0].value == 1) {
+                    swal("Cập nhật thành công", "success", "success");
+                    init();
+                }
+            },
+            error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+        });
+    }
+
+    function LoadMaxTotalSubject() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetMaxTotalSubject',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { ID: $('#subject').val() },
+            async: false,
+            success: function (data) {
+                $('#maxtotalsubject').val(data.MaxTotal)
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function updateSubjectTotal() {
+
+
+        $.ajax({
+            type: "Get",
+            url: '/Rule/UpdateSubjectTotal',
+            contentType: "application/json; charset=utf-8",
+            data: { maxtotal: $('#maxtotalsubject').val() },
+            dataType: "json",
+            success: function (result) {
+                if (result[0].value == 1) {
+                    swal("Cập nhật thành công", "success", "success");
+                    init();
+                }
+            },
+            error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+        });
+    }
+
+</script>

@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Quản lý môn học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Quản lý môn học";
+}
+<style>
+    .btn-success{
+    background: #7460ee;
+    border: 1px solid #7460ee;  
+    }
+    .card-outline-success{
+            background: #7460ee;
+    border: 1px solid #7460ee;
+    }
+</style>
+<div class="row">
+    <button class="btn pull-left hidden-sm-down btn-success" data-toggle="modal" data-target="#ModelAddSubject" style="margin-left: 15px;">
+        <i class="fa fa-plus"></i> Thêm môn học
+    </button>
+   
+</div>
+<div class="row">
+   
+
+</div>
+<div class="row" style="    margin-top: 10px;">
+    <div class="col-lg-12 col-xlg-10 col-md-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Danh sách môn học</h4>
+            </div>
+            <div class="card-block">
+                <table id="subjecttable" class="table color-bordered-table" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã môn học</th>
+                            <th>Tên môn học</th>
+                            <th>Số tiết</th>
+                            <th>Hệ số</th>
+                            <th>Cập nhật</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-block">
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content card card-outline-primary">
+                        <div class="modal-header card-header">
+                            <h4 class="modal-title" id="exampleModalLabel1" style="color:white">Cập nhật thông tin môn học</h4>
+                             </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Mã môn học</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectid" type="text" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div id="fmsubjectname"  class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Tên môn học</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectname" type="text" class="form-control">
+                                            <small id="spsubjectname" class="form-control-feedback">Tên môn học không được để trống </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Số tiết</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectperiod" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right  col-md-4">Hệ số</label>
+                                        <div class="col-md-8">
+                                            <input id="subjecttype" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="btnclose()">Đóng</button>
+                            <button type="button" class="btn btn-primary"  onclick="updateinfosubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+
+            <div class="modal fade" id="ModelAddSubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content card card-outline-success">
+                        <div class="modal-header card-header">
+                            <h4 class="modal-title" id="exampleModalLabel1" style="color:white">Thêm môn học</h4>
+                             </div>
+                        <div class="modal-body">
+                            <form>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row" id="fmsubjectnameadd">
+                                        <label class="control-label text-right  col-md-4">Tên môn học</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectnameadd" type="text" class="form-control">
+                                            <small id="spsubjectnameadd" class="form-control-feedback">Tên môn học không được để trống. </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row" id="fmsubjectperiodadd">
+                                        <label class="control-label text-right  col-md-4">Số tiết</label>
+                                        <div class="col-md-8">
+                                            <input id="subjectperiodadd" type="text" class="form-control">
+                                            <small id="spsubjectperiodadd" class="form-control-feedback">Số tiết không hợp lệ. </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group row" id="fmsubjecttypeadd">
+                                        <label class="control-label text-right  col-md-4">Hệ số</label>
+                                        <div class="col-md-8">
+                                            <input id="subjecttypeadd" type="text" class="form-control">
+                                            <small id="spsubjecttypeadd" class="form-control-feedback">Hệ số không hợp lệ. </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" onclick="btnclosemodaladd()">Đóng</button>
+                            <button type="button" class="btn btn-primary" onclick="addsubject()"><i class="fa fa-edit" style="font-size:16px"></i>Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Subjects/Subjects.js"></script>
+<script>
+    $(document).ready(function () {
+
+    })
+</script>

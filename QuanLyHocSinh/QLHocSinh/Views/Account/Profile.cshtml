@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Hồ sơ cá nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Profile";
+}
+<style>
+    .display-6 {
+        font-size: 20px !important;
+        font-family: "Times New Roman", Times, serif !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Thông tin cá nhân</h4>
+            </div>
+            <div class="card-block">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-3">Họ tên</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="fullName" type="text" class="form-control" placeholder="Nhập họ tên">
+                                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    </div>
+                                    <small id="spfullname" class="form-control-feedback">Họ tên không được để trống </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3">Giới tính</label>
+                                <div class="col-md-9">
+                                    <select id="gender" class="selectpicker" data-style="form-control btn-secondary">
+                                        <option value="1">Nam</option>
+                                        <option value="2">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmaddress" class="form-group row">
+                                <label class="control-label col-md-3">Địa chỉ</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="address" type="text" class="form-control" placeholder="Nhập địa chỉ">
+                                        <div class="input-group-addon"><i class="ti-credit-card"></i></div>
+                                    </div>
+                                    <small id="spaddress" class="form-control-feedback">Địa chỉ không được để trống. </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div id="fmemail" class="form-group row">
+                                <label class="control-label col-md-3">Email</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="email" type="text" class="form-control" placeholder="Nhập Email">
+                                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    </div>
+                                    <small id="spemail" class="form-control-feedback">Email không hợp lệ </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmbirthday" class="form-group row">
+                                <label class="control-label col-md-3">Ngày sinh</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" id="birthDay" class="form-control" placeholder="mm/dd/yyyy">
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                    <small id="spbirthday" class="form-control-feedback">Ngày sinh không hợp lệ </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div id="fmnote" class="form-group row">
+                                <label class="control-label col-md-3">Điện thoại</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="note" type="text" class="form-control" placeholder="Nhập số điện thoại">
+                                        <div class="input-group-addon"><i class="ti-mobile"></i></div>
+                                    </div>
+
+                                    <small id="spnote" class="form-control-feedback">Số điện thoại không hợp lệ </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="control-label text-right col-md-3"></label>
+                                <div class="col-md-9">
+                                    <button onclick="UpdateProfile()" class="btn pull-right hidden-sm-down btn-success" style="    width: 110px;">
+                                    <i class="fa fa-check"></i> Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Account/Profile.js"></script>

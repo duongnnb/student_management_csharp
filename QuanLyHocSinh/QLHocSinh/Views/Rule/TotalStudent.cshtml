@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "Thay đổi quy định";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Thay đổi quy định";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Quy định về sĩ số lớp</h4>
+            </div>
+            <div class="card-block">
+                <div class="form-body">
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Chọn lớp</label>
+                                <div class="col-md-8">
+                                    <select id="grade"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-3">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Tên lớp</label>
+                                <div class="col-md-8">
+                                    <input id="gradename" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-6" style="padding-top: 9px;">Sĩ số tối đa</label>
+                                <div class="col-md-6">
+                                    <input id="maxtotal" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-1">
+                            <button onclick="updateRuleTotalStudent()" class="btn btn-primary">
+                                <i class="fa fa-check"></i>
+                                Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Quy định về số lượng lớp</h4>
+            </div>
+            <div class="card-block">
+                <div class="form-body">
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-4" style="padding-top: 9px;">Chọn khối</label>
+                                <div class="col-md-8">
+                                    <select id="block"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+
+                        <div class="col-md-4">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-6" style="padding-top: 9px;">Số lượng/Mỗi lớp</label>
+                                <div class="col-md-6">
+                                    <input id="maxtotalblock" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-1">
+                            <button onclick="updateRuleTotalBlock()" class="btn btn-primary">
+                                <i class="fa fa-check"></i>
+                                Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#grade').selectpicker();
+        $('#block').selectpicker();
+        init();
+        $('#grade').change(function () {
+            // var selectedText = $(this).find("option:selected").text();
+            LoadClass();
+        });
+
+        $('#block').change(function () {
+            // var selectedText = $(this).find("option:selected").text();
+            LoadBlock();
+        });
+        $("#maxtotal").TouchSpin({
+            min: 1,
+            max: 1000,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        $("#maxtotalblock").TouchSpin({
+            min: 1,
+            max: 1000,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+        
+    });
+
+    function init() {
+        GetClass();
+        LoadClass();
+        GetBlock();
+        LoadBlock();
+    }
+    function LoadClass() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetClassByID',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { ID: $('#grade').val() },
+            async: false,
+            success: function (data) {
+                $('#gradename').val(data.ClassName)
+                $('#maxtotal').val(data.MaxTotal)
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function GetClass() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetRuleTotalStudent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $('#grade').find('option').remove().end();
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#grade").append('<option value="' + obj.ID + '">' + obj.ClassName + '</option>').selectpicker('refresh');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function updateRuleTotalStudent() {
+
+        var ruletotal = {
+            ID: $('#grade').val(),
+            ClassName: $('#gradename').val(),
+            MaxTotal: $('#maxtotal').val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/Rule/UpdateRuleTotalStudent',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(ruletotal),
+            dataType: "json",
+            success: function (result) {
+                if (result[0].value == 1) {
+                    swal("Cập nhật thành công", "Thông tin lớp học đã được thay đổi", "success");
+                    init();
+                }
+            },
+            error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+        });
+    }
+
+    function GetBlock() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetBlock',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var jsonData = JSON.stringify(data);
+                $.each(JSON.parse(jsonData), function (idx, obj) {
+                    $("#block").append('<option value="' + obj.ID + '">' + obj.LevelName + '</option>').selectpicker('refresh');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function LoadBlock() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetBlockByID',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { ID: $('#block').val() },
+            async: false,
+            success: function (data) {
+                $('#maxtotalblock').val(data.MaxTotal)
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+    }
+    function updateRuleTotalBlock() {
+        var ruletotal = {
+            ID: $('#block').val(),
+            MaxTotal: $('#maxtotalblock').val()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/Rule/UpdateRuleTotalBlock',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(ruletotal),
+            dataType: "json",
+            success: function (result) {
+                if (result[0].value == 1) {
+                    swal("Cập nhật thành công", "success", "success");
+                }
+            },
+            error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+        });
+    }
+</script>

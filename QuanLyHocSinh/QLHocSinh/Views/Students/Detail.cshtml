@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Tra cứu học sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Quản lý bảng điểm";
+}
+
+
+<style>
+    .form-group row {
+        padding-top: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Thông tin</h4>
+            </div>
+            <div class="card-block">
+                <form action="form-layout.html#" class="form-horizontal">
+                    <div class="form-body">
+                        <hr class="m-t-0 m-b-40">
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="fmblock" class="form-group row">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div id="fmblock" class="form-group row">
+                                                <label style="padding-top: 7px;" class="control-label text-right col-md-4">Tên HS</label>
+                                                <div class="col-md-8">
+                                                    <input id="IDShow" type="text" class="form-control">
+                                                    <input id="txtIDName" style="display:none"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div id="fmgrade" class="form-group row">
+                                                @*<label style="padding-top: 7px;" class="control-label text-right col-md-5">Học kỳ</label>*@
+                                                <div class="col-md-12">
+                                                    <select id="semester">
+                                                        <option value="1">Học kỳ 1</option>
+                                                        <option value="2">Học kỳ 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div id="" class="form-group row">
+                                                @*<label class="control-label text-right col-md-2">Khóa học</label>*@
+                                                <div class="col-md-12">
+                                                    <select id="Year" data-style="form-control btn-secondary">
+                                                        @{
+                                                            int strDate = DateTime.Now.Year;
+                                                            for (; strDate > 1988; strDate--)
+                                                            {
+                                                                var tem = strDate - 1;
+                                                                <option value="@tem-@strDate">Khóa học @tem - @strDate </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div id="fmgrade" class="form-group row">
+                                                <button type="button" onclick="ViewDetail()" class="btn btn-primary">
+                                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                                    Tìm kiếm
+                                               
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <table id="student" class="table table-striped table-bordered" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã HS</th>
+                                    <th>Họ tên</th>
+                                    <th>Môn học</th>
+                                    <th>Điểm 15'</th>
+                                    <th>Điểm 45'</th>
+                                    <th>Điểm thi</th>
+                                    <th>Điểm TB</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Students/Detail.js"></script>
+<script>
+    $(document).ready(function () {
+
+    })
+
+</script>

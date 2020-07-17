@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Quản lý học sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Home";
+}
+<style>
+    .display-6 {
+        font-size: 20px !important;
+        font-family: "Times New Roman", Times, serif !important;
+    }
+</style>
+
+
+<!-- Row -->
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-md-4">
+        <div class="card card-inverse card-primary">
+            <div class="card-block">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white"><i class="icon-people"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Tổng số học sinh</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 align-self-center">
+                        <span id="totalstudent" class="display-6 text-white"></span>
+                    </div>
+                    <div class="col-8  text-right">
+                        <div class="display-6 text-white">
+                            
+                            <a href="/Classes/Index" class="display-6 text-white">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Quản lý
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-4 col-md-4">
+        <div class="card card-inverse card-info">
+            <div class="card-block">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white"><i class="icon-briefcase"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Tổng số lớp học</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 align-self-center">
+                        <span id="totalclass"  class="display-6 text-white"></span>
+                    </div>
+                    <div class="col-8  text-right">
+                        <div class="display-6 text-white">
+
+                            <a href="Classes/List" class="display-6 text-white">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Quản lý
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <div class="col-lg-4 col-md-4">
+        <div class="card card-inverse card-warning">
+            <div class="card-block">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white"><i class="icon-notebook"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Tổng số môn học</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 align-self-center">
+                        <span id="totalsubject" class="display-6 text-white"></span>
+                    </div>
+                    <div class="col-8  text-right">
+                        <div class="display-6 text-white">
+
+                            <a href="/Subjects/Index" class="display-6 text-white">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Quản lý
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <div class="card card-inverse card-success">
+            <div class="card-block">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white"><i class="icon-note"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Bảng điểm</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 align-self-center">
+                        <span class="display-6 text-white"></span>
+                    </div>
+                    <div class="col-8  text-right">
+                        <div class="display-6 text-white">
+
+                            <a href="#" class="display-6 text-white">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Quản lý
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4">
+        <div class="card card-inverse card-danger">
+            <div class="card-block">
+                <div class="d-flex">
+                    <div class="m-r-20 align-self-center">
+                        <h1 class="text-white"><i class=" icon-lock"></i></h1>
+                    </div>
+                    <div>
+                        <h3 class="card-title">Quy định</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 align-self-center">
+                        <span class="display-6 text-white"></span>
+                    </div>
+                    <div class="col-8  text-right">
+                        <div class="display-6 text-white">
+
+                            <a href="/Rule/Age" class="display-6 text-white">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                               Chi tiết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row -->
+<!-- Row -->
+<script>
+    $(document).ready(function () {
+        init();
+
+    });
+
+    function init() {
+        $.ajax({
+            type: "GET",
+            url: '/Students/GetTotalStudent',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $('#totalstudent').html(data[0].TotalStudent);
+                $('#totalclass').html(data[0].TotalClass + "/" + data[0].TotalClassMax);
+                $('#totalsubject').html(data[0].TotalSubject + '/' + data[0].TotalSubjectMax);
+
+
+                $('#progresssubjecttext').html(Math.round((data[0].TotalSubject / data[0].TotalSubjectMax) * 100) + '%');
+                $('#progresssubject').css('width', (data[0].TotalSubject / data[0].TotalSubjectMax) * 100 + '%').attr('aria-valuenow', 75 + ' %');
+
+                $('#progressclasstext').html(Math.round((data[0].TotalClass / data[0].TotalClassMax) * 100) + '%');
+                $('#progressclass').css('width', (data[0].TotalClass / data[0].TotalClassMax) * 100 + '%').attr('aria-valuenow', 75 + ' %');
+            },
+            error: function (xhr, status, error) {
+                alert('err or seleccct 2222:');
+            }
+        });
+
+
+
+    }
+</script>

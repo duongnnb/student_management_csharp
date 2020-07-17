@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLHSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Classes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ClassLevel" Type="int" />
+    <Property Name="Total" Type="int" />
+    <Property Name="Flag" Type="int" />
+    <Property Name="MaxTotal" Type="int" />
+  </EntityType>
+  <EntityType Name="ClassLevel">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LevelName" Type="nvarchar" MaxLength="255" />
+    <Property Name="MaxTotal" Type="int" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CUSId" />
+    </Key>
+    <Property Name="CUSId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CUSKey" Type="varchar" MaxLength="8" StoreGeneratedPattern="Computed" />
+    <Property Name="CusName" Type="varchar" MaxLength="50" />
+    <Property Name="mobileno" Type="int" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Point">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="SubjectID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Semester" Type="int" />
+    <Property Name="Test15Minutes" Type="float" />
+    <Property Name="Test45Minutes" Type="float" />
+    <Property Name="TestSemester" Type="float" />
+    <Property Name="Average" Type="float" />
+    <Property Name="Flag" Type="int" />
+    <Property Name="StudenJoinID" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="date" />
+    <Property Name="ClassID" Type="int" />
+  </EntityType>
+  <EntityType Name="RuleAge">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MinAge" Type="int" Nullable="false" />
+    <Property Name="MaxAge" Type="int" Nullable="false" />
+    <Property Name="Flag" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="RuleStandardScore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StandardScore" Type="float" />
+    <Property Name="Flag" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="RuleSubject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDSubject" Type="int" Nullable="false" />
+    <Property Name="MaxTotal" Type="int" Nullable="false" />
+    <Property Name="Flag" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+    <Property Name="BirthDay" Type="datetime" />
+    <Property Name="Gender" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="ClassLevel" Type="int" />
+    <Property Name="Class" Type="int" />
+    <Property Name="State" Type="int" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectID" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Flag" Type="int" />
+    <Property Name="Type" Type="int" />
+    <Property Name="Level1" Type="int" />
+    <Property Name="Level2" Type="int" />
+    <Property Name="Level3" Type="int" />
+    <Property Name="Period" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+    <Property Name="username" Type="varchar" MaxLength="20" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="Role" Type="int" />
+    <Property Name="address" Type="nvarchar(max)" />
+    <Property Name="phonenumber" Type="varchar" MaxLength="20" />
+    <Property Name="flag" Type="int" />
+    <Property Name="birthday" Type="datetime" />
+    <Property Name="gender" Type="int" />
+  </EntityType>
+  <Function Name="addStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fidstudent" Type="varchar" Mode="In" />
+    <Parameter Name="ffullname" Type="nvarchar" Mode="In" />
+    <Parameter Name="fbirthday" Type="varchar" Mode="In" />
+    <Parameter Name="fgender" Type="varchar" Mode="In" />
+    <Parameter Name="femail" Type="varchar" Mode="In" />
+    <Parameter Name="fphonenumber" Type="varchar" Mode="In" />
+    <Parameter Name="faddress" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="checklogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fusername" Type="varchar" Mode="In" />
+    <Parameter Name="fpassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="getClassByLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="iDLevel" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="GetClasses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getClassLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getListSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getStudentByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="getStudentDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="getStudentPoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fsubjectid" Type="varchar" Mode="In" />
+    <Parameter Name="fclassid" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="getStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getStudentsByClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fclass" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="getSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="ReportFolowSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Semester" Type="int" Mode="In" />
+    <Parameter Name="SubjectID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="ReportFolowYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+    <Parameter Name="Semester" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UpdateStudentPoint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fids" Type="varchar" Mode="In" />
+    <Parameter Name="fp15" Type="varchar" Mode="In" />
+    <Parameter Name="fp45" Type="varchar" Mode="In" />
+    <Parameter Name="fpl" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="QLHSModelStoreContainer">
+    <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClassLevel" EntityType="Self.ClassLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Point" EntityType="Self.Point" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RuleAge" EntityType="Self.RuleAge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RuleStandardScore" EntityType="Self.RuleStandardScore" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RuleSubject" EntityType="Self.RuleSubject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

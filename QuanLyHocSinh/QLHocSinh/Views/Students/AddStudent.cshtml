@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Tiếp nhận học sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Quản lý học sinh";
+}
+<style>
+    .pull-right {
+        float: left !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Tiếp nhận học sinh</h4>
+            </div>
+            <div class="card-block">
+                <div class="form-body">
+                    <h4 class="box-title">Thông tin cá nhân</h4>
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-3">Họ tên</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="fullName" type="text" class="form-control" placeholder="Nhập họ tên">
+                                        <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    </div>
+                                    <small id="spfullname" class="form-control-feedback">Họ tên không được để trống </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group has-error row ">
+                                <label class="control-label col-md-3">Giới tính</label>
+                                <div class="col-md-9">
+                                    <select id="gender" class="selectpicker" data-style="form-control btn-secondary">
+                                        <option value="1">Nam</option>
+                                        <option value="2">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmaddress" class="form-group row">
+                                <label class="control-label col-md-3">Địa chỉ</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="address" type="text" class="form-control" placeholder="Nhập địa chỉ">
+                                        <div class="input-group-addon"><i class="ti-credit-card"></i></div>
+                                    </div>
+                                    <small id="spaddress" class="form-control-feedback">Địa chỉ không được để trống. </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div id="fmemail" class="form-group row">
+                                <label class="control-label col-md-3">Email</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="email" type="text" class="form-control" placeholder="Nhập Email">
+                                        <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    </div>                                    
+                                    <small id="spemail" class="form-control-feedback">Email không hợp lệ </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmbirthday" class="form-group row">
+                                <label class="control-label col-md-3">Ngày sinh</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" id="birthDay" class="form-control" placeholder="mm/dd/yyyy">
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                    <small id="spbirthday" class="form-control-feedback">Ngày sinh không hợp lệ </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div id="fmnote" class="form-group row">
+                                <label class="control-label col-md-3">Điện thoại</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input id="note" type="text" class="form-control" placeholder="Nhập số điện thoại">
+                                        <div class="input-group-addon"><i class="ti-mobile"></i></div>
+                                    </div>
+                                    
+                                    <small id="spnote" class="form-control-feedback">Số điện thoại không hợp lệ </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <h3 class="box-title">Thông tin lớp học</h3>
+                    <hr class="m-t-0 m-b-40">
+                    <!--/row-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="fmblock" class="form-group row">
+                                <label class="control-label text-right col-md-3">Khối</label>
+                                <div class="col-md-9">
+                                    <select id="block" data-style="form-control btn-secondary"></select>
+                                    <small id="spblock" class="form-control-feedback">Khối không được để trống. </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="fmgrade" class="form-group row">
+                                <label class="control-label text-right col-md-3">Lớp</label>
+                                <div class="col-md-9">
+                                    <select id="grade" data-style="form-control btn-secondary"></select>
+                                    <small id="spgrade" class="form-control-feedback">Lớp không được để trống. </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                           
+                        </div>
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="control-label text-right col-md-3"></label>
+                                <div class="col-md-9">
+                                    <button onclick="addStudent()" class="btn pull-right hidden-sm-down btn-success" style="    width: 110px;"><i class="fa fa-plus-square"></i> Thêm</button>
+                                    <button id="btnClearForm" class="btn pull-right hidden-sm-down btn-primary" style="margin-left: 12px;"><i class="fa fa-refresh"></i> Làm mới</button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+                    <!--/row-->
+
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/Students/Students.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+    })
+
+</script>

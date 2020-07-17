@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Thay đổi quy định";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Page = "Thay đổi quy định";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline-primary">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Quy định về điểm chuẩn đạt môn</h4>
+            </div>
+            <div class="card-block">
+                <div class="form-body">
+                    <hr class="m-t-0 m-b-40">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="fmfullname" class="form-group row">
+                                <label class="control-label col-md-6" style="padding-top: 9px;">Điểm chuẩn</label>
+                                <div class="col-md-6">
+                                    <input id="idr" type="hidden" class="form-control">
+                                    <input id="score" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button onclick="updateRuleScore()" class="btn pull-left btn-primary"><i class="fa fa-check"></i> Lưu</button>
+                        </div>
+                    </div>
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        LoadRule();
+        
+        $("#score").TouchSpin({
+            min: 1,
+            max: 10,
+            stepinterval: 1,
+            maxboostedstep: 1,
+        });
+    });
+    function LoadRule() {
+        $.ajax({
+            type: "GET",
+            url: '/Rule/GetRuleScore',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $('#score').val(data.StandardScore);
+                $('#idr').val(data.ID);
+                
+            },
+            error: function (xhr, status, error) {
+                alert('Error789:');
+            }
+        });
+    }
+    function updateRuleScore() {
+
+        var rs = {
+            ID: $('#idr').val(),
+            StandardScore: $('#score').val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/Rule/updateRuleScore',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(rs),
+            dataType: "json",
+            success: function (result) {
+                if (result[0].value == 1) {
+                    swal("Thay đổi thành công", "success", "success");
+                }
+            },
+            error: function (xhr, status, error) { alert('Có lỗi xảy ra!!'); }
+        });
+    }
+</script>
